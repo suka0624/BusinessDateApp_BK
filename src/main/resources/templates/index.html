@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="業務日付管理"></title>
+	<style>
+	h1 { font-size:18pt; font-weight:bold; color:white; background:black; padding:5px;}
+	h2 { font-size:16pt; font-weight:bold; color:white; background:blue; padding:5px; width:300px}
+	h3 { font-size:14pt; font-weight:bold; }
+	body { font-size:13pt; margin:5px 25px }
+	tr { margin:5px }
+	th { padding:5px; color:white; background:darkgray; }
+	td { padding:5px; color:black; background:#f0f0f0 }
+	</style>
+	<script src="/js/businessDate.js" th:src="@{/js/businessDate.js}"></script>
+</head>
+<body>
+	<h1 th:text="#{content.title}"></h1>
+
+	<h2>新規登録</h2>
+	<form method="post" action="/" th:object="${formModel}">
+		<table>
+			<tr>
+				<td><label for="name">名前</label></td>
+				<td><input type="text" name="name" th:value="*{name}" /></td>
+			</tr>
+			<tr>
+				<td><label for="formula">計算式</label></td>
+				<td><textarea name="formula" th:text="*{formula}" cols="20" rows="5"></textarea></td>
+			</tr>
+			<tr><td></td><td><input type="submit" value="登録"/></td></tr>
+		</table>
+	</form>
+	
+	<hr>
+	<h2>業務日付一覧</h2>
+	<h3>計算基準値</h3>
+	<form name="formBase">
+		<table>
+			<tr>
+				<th>x :</th>
+				<td><input type="number" size="20" name="base" value="0" /></td>
+			</tr>
+		</table>
+	</form>
+
+	<h3>一覧</h3>
+	<form name="formList">
+		<table>
+			<tr><th>ID</th><th>名前</th><th>計算式</th><th>計算</th><th>計算結果</th><th>編集</th><th>削除</th></tr>
+			<tr th:each="obj : ${datalist}">
+				<td th:text="${obj.id}"></td>
+				<td th:text="${obj.name}"></td>
+				<td th:text="${obj.formula}" ></td>
+				<td><input type="button" value="計算" onclick="calc(this)" /></td>
+				<td></td>
+				<td><a th:href="@{/edit/{id}(id=${obj.id})}">編集</a></td>
+				<td><a th:href="@{/delete/{id}(id=${obj.id})}">削除</a></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

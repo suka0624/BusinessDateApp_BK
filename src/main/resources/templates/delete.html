@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>業務日付管理</title>
+	<style>
+	h1 { font-size:18pt; font-weight:bold; color:white; background:black; padding:5px;}
+	h2 { font-size:16pt; font-weight:bold; color:white; background:blue; padding:5px; width:300px}
+	h3 { font-size:14pt; font-weight:bold; }
+	body { font-size:13pt; margin:5px 25px }
+	tr { margin:5px }
+	th { padding:5px; color:white; background:darkgray; }
+	td { padding:5px; color:black; background:#f0f0f0 }
+	</style>
+</head>
+<body>
+	<h1 th:text="#{content.title}"></h1>
+	
+	<h2>業務日付削除</h2>
+	<form method="post" action="/delete" th:object="${formModel}">
+		<table>
+			<input type="hidden" name="id" th:value="*{id}" />
+			<tr><td><p th:text="|名前： *{name}|"></p></td></tr>
+			<tr><td><p th:text="*{formula}"></p></td></tr>
+			<tr><td><input type="submit" value="削除" /></td></tr>
+		</table>
+	</form>
+</body>
+</html>
